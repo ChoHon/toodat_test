@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     # Apps
     'account',
     'work',
+    'coupon',
 ]
 
 REST_FRAMEWORK = {

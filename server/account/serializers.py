@@ -1,4 +1,7 @@
+from django.contrib.auth import authenticate, login
+
 from rest_framework import serializers
+
 from account.models import User
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -10,7 +13,6 @@ class SignUpSerializer(serializers.ModelSerializer):
         fields = ['email', 'password', 'confirm_password']
 
     def validate(self, data):
-        email = data.get('email')
         password = data.get('password')
         confirm_password = data.get('confirm_password')
 

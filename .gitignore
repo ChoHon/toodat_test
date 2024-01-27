@@ -3,6 +3,8 @@
 .venv
 .env
 
+__collect_static
+
 migrations/
 __pycache__/
 

@@ -1,9 +1,9 @@
 .DS_Store
 
+.vscode
 .venv
-.env
 
-__collect_static
+.env
 
 migrations/
 __pycache__/

@@ -52,7 +52,11 @@
             쿠폰 이벤트
           </div>
 
-          <div class="test-sm">남은 쿠폰 수 : {{ couponCount }}</div>
+          {% if eventState %}
+          <div class="test-sm">남은 쿠폰 수 : {{ coupon.count }}</div>
+          {% else %}
+          <div class="test-sm">이벤트 종료</div>
+          {% endif %}
         </div>
         <div class="mt-4 flex md:ml-4 md:mt-0">
           {% if user.is_authenticated %}
@@ -87,6 +91,7 @@
             </div>
           </div>
           <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+            {% if eventState %}
             <button
               type="button"
               class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -94,6 +99,14 @@
             >
               쿠폰 받기
             </button>
+            {% else %}
+            <button
+              type="button"
+              class="ml-3 inline-flex items-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-white shadow-sm cursor-auto"
+            >
+              쿠폰 받기
+            </button>
+            {% endif %}
           </div>
         </li>
         {% endfor %}

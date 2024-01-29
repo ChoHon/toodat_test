@@ -5,9 +5,13 @@ from work.models import Work
 from coupon.models import Coupon
 
 def index(request):
+    COUPON_ID = 1
+    coupon = Coupon.objects.filter(id=COUPON_ID).first()
     works = Work.objects.all()
-    coupon = Coupon.objects.get(pk=1)
+    
+    eventState = True if coupon is not None else False    
+    eventState = False if eventState and coupon.count <= 0 else eventState
 
     template = loader.get_template('event/index.html')
-    context = { 'works': works, 'couponCount' : coupon.count}
+    context = { 'works': works, 'coupon' : coupon, 'eventState' : eventState }
     return HttpResponse(template.render(context, request))

@@ -24,16 +24,16 @@ class CouponUserViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         
         coupon = Coupon.objects.get(id=request.data['coupon'])
-        if coupon.count > 0:
-            coupon.count -= 1
-            coupon.save()
-        else:
+        if coupon.count <= 0:
             return Response({'result' : '쿠폰이 모두 소진되었습니다'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             self.perform_create(serializer)
         except IntegrityError:
             return Response({'result' : '이미 쿠폰을 받았습니다'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        coupon.count -= 1
+        coupon.save()
         
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

@@ -2,7 +2,10 @@ from pathlib import Path
 import os
 import environ
 
+from config.auths import CustomSessionAuthentication
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'template')
 
 env = environ.Env(DEBUG=(bool, True))
 environ.Env.read_env(
@@ -27,11 +30,13 @@ INSTALLED_APPS = [
     'account',
     'work',
     'coupon',
+    'event',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication'
+        # 'rest_framework.authentication.SessionAuthentication'
+        'config.auths.CustomSessionAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
@@ -55,7 +60,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

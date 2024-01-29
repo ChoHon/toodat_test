@@ -1,8 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+from django.template import loader
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+
 
 from .serializers import SignUpSerializer
 
@@ -35,8 +39,13 @@ class LogInView(APIView):
             return Response({'result' : 'login success'}, status=status.HTTP_200_OK)
         else:
             return Response({'result' : '이메일 혹은 비밀번호가 올바르지 않습니다'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
 class LogOutView(APIView):
     def post(self, request):
         logout(request)
         return Response({'result' : 'logout success'}, status=status.HTTP_200_OK)
+    
+def LoginPage(request):
+    template = loader.get_template('account/login.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

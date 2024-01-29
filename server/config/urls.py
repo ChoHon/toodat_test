@@ -12,4 +12,5 @@ router.register(r'couponuser', CouponUserViewSet, basename='couponuser')
 urlpatterns = [
     path('', include(router.urls)),
     path('account/', include('account.urls')),
+    path('event/', include('event.urls')),
 ]

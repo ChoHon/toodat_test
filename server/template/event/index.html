@@ -7,7 +7,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <script src="./index.js"></script> -->
 
     <script>
       const logout = async () => {
@@ -23,7 +22,6 @@
       };
 
       const getCoupon = async (workId) => {
-        console.log(workId);
         try {
           const response = await axios.post(
             "http://localhost:8000/couponuser/",
@@ -32,10 +30,13 @@
               work: workId,
             }
           );
-          console.log(response.data);
+
+          alert(`쿠폰 번호 : ${response.data.code}`);
         } catch (error) {
-          console.error(error);
+          alert(error.response.data.result);
         }
+
+        location.reload(true);
       };
     </script>
 
@@ -45,11 +46,13 @@
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
       <div class="md:flex md:items-center md:justify-between my-16">
         <div class="min-w-0 flex-1">
-          <h2
+          <div
             class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
           >
             쿠폰 이벤트
-          </h2>
+          </div>
+
+          <div class="test-sm">남은 쿠폰 수 : {{ couponCount }}</div>
         </div>
         <div class="mt-4 flex md:ml-4 md:mt-0">
           {% if user.is_authenticated %}

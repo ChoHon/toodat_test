@@ -49,3 +49,8 @@ def LoginPage(request):
     template = loader.get_template('account/login.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+def SignupPage(request):
+    template = loader.get_template('account/signup.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

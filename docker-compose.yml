@@ -6,6 +6,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./server/static:/usr/src/app/static
     depends_on:
       - server
 

@@ -36,19 +36,25 @@
    DJANGO_SUPERUSER_PASSWORD=1234
    ```
 
-3. `docker-compose.yml` 파일이 있는 디렉토리에서 실행
+3. `/server`에서 다음을 실행
+
+   ```bash
+   python manage.py collectstatic
+   ```
+
+4. `docker-compose.yml` 파일이 있는 디렉토리에서 실행
 
    ```bash
    docker-compose up --build
    ```
 
-4. <http://localhost:8000/admin/> 접속
+5. <http://localhost:8000/admin/> 접속
 
    `.env`에 적었던 `DJANGO_SUPERUSER_EMAIL`과 `DJANGO_SUPERUSER_PASSWORD`로 로그인
 
    Work와 Coupon을 관리하는 별도의 페이지가 없기 때문에 관리자 페이지에서 관리한다
 
-5. <http://localhost:8000/event/> 접속
+6. <http://localhost:8000/event/> 접속
 
    관리자 계정으로 로그인 가능
 
@@ -150,6 +156,8 @@ Path : /signup-page/
 | discount_amount | 할인 금액 |
 | discount_rate   | 할인 비율 |
 | count           | 남은 수량 |
+
+Work와 Coupon을 관리하는 별도의 페이지가 없기 때문에 관리자 페이지에서 관리한다
 
 <br>
 

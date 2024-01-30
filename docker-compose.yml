@@ -6,7 +6,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./server/static:/usr/src/app/static
+      - static:/app/static
     depends_on:
       - server
 
@@ -16,7 +16,12 @@ services:
       dockerfile: Dockerfile
     command: >
       bash -c "gunicorn config.wsgi -b 0.0.0.0:8000 -w 2 --reload"
+    volumes:
+      - static:/app/static
     ports:
       - "8000:8000"
     expose:
       - "8000"
+
+volumes:
+  static:

@@ -1,5 +1,3 @@
-from django.contrib.auth import authenticate, login
-
 from rest_framework import serializers
 
 from account.models import User

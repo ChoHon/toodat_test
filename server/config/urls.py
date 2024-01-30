@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
 from work.views import WorkViewSet
@@ -13,4 +14,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('account/', include('account.urls')),
     path('event/', include('event.urls')),
+
+    path('admin/', admin.site.urls),
 ]

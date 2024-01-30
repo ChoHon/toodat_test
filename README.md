@@ -7,6 +7,7 @@
   - Django==5.0.1
   - djangorestframework==3.14.
   - django-environ==0.11.2
+  - django-cors-headers==4.3.1
   - gunicorn==21.2.0
 
   <br>

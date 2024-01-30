@@ -15,7 +15,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     command: >
-      bash -c "gunicorn config.wsgi -b 0.0.0.0:8000 -w 2"
+      bash -c "gunicorn config.wsgi -b 0.0.0.0:8000 -w 2 --reload"
     ports:
       - "8000:8000"
     expose:

@@ -25,11 +25,12 @@
 
 1. github 다운로드 혹은 압축파일 압축 풀기
 
-2. `.env` 파일 생성 및 작성
+2. `/server`에 `.env` 파일 생성 및 작성
 
    ```python
    SECRET_KEY= Django-SecretKey 만들어서 넣기
    DEBUG=False
+   ALLOWED_HOSTS=localhost,
 
    # admin 계정
    DJANGO_SUPERUSER_EMAIL=admin@admin.com

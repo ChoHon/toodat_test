@@ -69,7 +69,7 @@ class LoginAPITest(APITestCase):
         response = self.client.post(self.loginUrl, testUser, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['result'], 'login success')
+        self.assertEqual(response.data['result'], '로그인 성공')
 
     # 로그인 실패 - 잘못된 비밀번호
     def testLoginFail_WrongPassword(self):
@@ -119,7 +119,7 @@ class LogoutAPITest(APITestCase):
 
         response = self.client.post(self.logoutUrl)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['result'], 'logout success')
+        self.assertEqual(response.data['result'], '로그아웃 성공')
 
     # 로그아웃 실패 - 로그인 되지 않은 상태
     def testLogoutFail_NotLogin(self):

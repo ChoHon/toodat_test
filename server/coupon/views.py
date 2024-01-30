@@ -1,4 +1,4 @@
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.contrib.auth import get_user
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -22,18 +22,22 @@ class CouponUserViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
-        coupon = Coupon.objects.get(id=request.data['coupon'])
-        if coupon.count <= 0:
-            return Response({'result' : '쿠폰이 모두 소진되었습니다'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            self.perform_create(serializer)
-        except IntegrityError:
-            return Response({'result' : '이미 쿠폰을 받았습니다'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        coupon.count -= 1
-        coupon.save()
+            with transaction.atomic():
+                coupon = Coupon.objects.select_for_update().get(id=request.data['coupon'])
+                self.perform_create(serializer)
+                coupon.count -= 1
+                coupon.save()
+
+        except IntegrityError as e:
+            if 'CHECK constraint failed: count' in str(e):
+                return Response({'result' : '쿠폰이 모두 소진되었습니다'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            elif 'UNIQUE constraint' in str(e):
+                return Response({'result' : '이미 쿠폰을 받았습니다'}, status=status.HTTP_400_BAD_REQUEST)
+            
+
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

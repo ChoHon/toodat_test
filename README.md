@@ -48,13 +48,13 @@
    docker-compose up --build
    ```
 
-5. <http://localhost:8000/admin/> 접속
+5. <http://localhost/admin/> 접속
 
    `.env`에 적었던 `DJANGO_SUPERUSER_EMAIL`과 `DJANGO_SUPERUSER_PASSWORD`로 로그인
 
    Work와 Coupon을 관리하는 별도의 페이지가 없기 때문에 관리자 페이지에서 관리한다
 
-6. <http://localhost:8000/event/> 접속
+6. <http://localhost/event/> 접속
 
    관리자 계정으로 로그인 가능
 
@@ -95,6 +95,8 @@
 Path : /event/
 
 이번 프로젝트 메인 페이지, 작품 확인 및 쿠폰 발급
+
+ID가 1인 Coupon을 대상으로 페이지 구성
 
 <br>
 

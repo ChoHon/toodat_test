@@ -25,7 +25,7 @@ class SignUpView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # 로그인 View
-class LogInView(APIView):
+class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -36,15 +36,17 @@ class LogInView(APIView):
 
         if user is not None:
             login(request, user)
-            return Response({'result' : 'login success'}, status=status.HTTP_200_OK)
+            return Response({'result' : '로그인 성공'}, status=status.HTTP_200_OK)
         else:
             return Response({'result' : '이메일 혹은 비밀번호가 올바르지 않습니다'}, status=status.HTTP_400_BAD_REQUEST)
 
-class LogOutView(APIView):
+# 로그아웃 View
+class LogoutView(APIView):
     def post(self, request):
         logout(request)
-        return Response({'result' : 'logout success'}, status=status.HTTP_200_OK)
-    
+        return Response({'result' : '로그아웃 성공'}, status=status.HTTP_200_OK)
+
+
 def LoginPage(request):
     template = loader.get_template('account/login.html')
     context = {}

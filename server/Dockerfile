@@ -7,3 +7,6 @@ ADD . /app
 WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+RUN python manage.py migrate
+RUN python manage.py createsuperuser --noinput

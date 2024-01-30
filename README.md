@@ -50,7 +50,7 @@
 
    Work와 Coupon을 관리하는 별도의 페이지가 없기 때문에 관리자 페이지에서 관리한다
 
-5. <http://localhost/event/> 접속
+5. <http://localhost:8000/event/> 접속
 
    관리자 계정으로 로그인 가능
 

@@ -12,4 +12,5 @@ RUN python manage.py makemigrations account
 RUN python manage.py makemigrations work
 RUN python manage.py makemigrations coupon
 RUN python manage.py migrate
+RUN python manage.py collectstatic
 RUN python manage.py createsuperuser --noinput

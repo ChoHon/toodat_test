@@ -9,8 +9,8 @@ def index(request):
     coupon = Coupon.objects.filter(id=COUPON_ID).first()
     works = Work.objects.all()
     
-    eventState = True if coupon is not None else False    
-    eventState = False if eventState and coupon.count <= 0 else eventState
+    eventState = "ongoing" if coupon is not None else "none"    
+    eventState = "end" if eventState == "ongoing" and coupon.count <= 0 else eventState
 
     template = loader.get_template('event/index.html')
     context = { 'works': works, 'coupon' : coupon, 'eventState' : eventState }

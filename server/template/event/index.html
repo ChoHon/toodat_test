@@ -52,8 +52,10 @@
             쿠폰 이벤트
           </div>
 
-          {% if eventState %}
+          {% if eventState == "ongoing" %}
           <div class="test-sm">남은 쿠폰 수 : {{ coupon.count }}</div>
+          {% elif eventState == "none" %}
+          <div class="test-sm">쿠폰 정보 없음</div>
           {% else %}
           <div class="test-sm">이벤트 종료</div>
           {% endif %}
@@ -91,7 +93,7 @@
             </div>
           </div>
           <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            {% if eventState %}
+            {% if eventState == "ongoing" %}
             <button
               type="button"
               class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

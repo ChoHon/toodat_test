@@ -12,8 +12,10 @@
 
   <br>
 
-  - nginx
   - docker
+  - ~~nginx~~
+
+    HTTPS가 아니면 다른 Origin끼리 Set-Cookie가 작동 안해서 SessionAuthentication이 안됨(추정)
 
 <br>
 

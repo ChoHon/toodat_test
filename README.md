@@ -259,7 +259,7 @@ Scale up이나 Scale out이 아니라 일 자체의 부하는 줄이는 방식�
 
 보통 캐싱은 Redis와 같은 별도의 서버를 통해 동작한다
 
-해당 프로젝트에서는 Work(작품) 리스트가 캐싱하기 가장 좋은 부분이라고 생각한지만 구현하지는 못했다
+해당 프로젝트에서는 Work(작품) 리스트가 캐싱하기 가장 좋은 부분이라고 생각했지만 구현하지는 못했다
 
 <br>
 
@@ -267,3 +267,22 @@ Scale up이나 Scale out이 아니라 일 자체의 부하는 줄이는 방식�
 
 부하 감당을 위해서 Scale out을 하면 여러 일이 동시에 진행되고 동시성 문제가 생길 수 있다
 
+동시성 문제는 RDBMS에서 트랜잭션 격리수준을 조정하거나 Row Lock을 통해 해결할 수 있다
+
+동시성에 대한 너무 엄격한 해결책은 동시 처리 성능이 떨어져서 결국 부하와 레이턴시가 증가한다
+
+결국 성능과 동시성 사이에서 밸런스를 맞춰야 한다
+
+해당 프로젝트의 경우 트래픽이 증가할 때 동시성 문제가 생길만한 부분은 쿠폰 발행하면서 쿠폰의 잔량을 하나 줄이는 부분이다
+
+```python
+with transaction.atomic():
+   coupon = Coupon.objects.select_for_update().get(id=request.data['coupon'])
+   self.perform_create(serializer)
+   coupon.count -= 1
+   coupon.save()
+```
+
+`transaction.atomic()`을 사용해서 해당 부분을 하나의 트랜잭션으로 만들었다
+
+그리고 `select_for_update()`를 사용해서 대상 쿠폰에 Row Lock을 걸어서 동시성 보장하고자 했다

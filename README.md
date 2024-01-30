@@ -71,9 +71,9 @@
 
 ### Coupon App
 
-| METHOD | PATH         | 설명          |
-| ------ | ------------ | ------------- |
-| POST   | /couponuser/ | 쿠폰 발급 API |
+| METHOD | PATH         | 설명                                           |
+| ------ | ------------ | ---------------------------------------------- |
+| POST   | /couponuser/ | 쿠폰 발급 API, 발급에 성공하면 coupon.count -1 |
 
 <br>
 
@@ -165,6 +165,8 @@ Path : /signup-page/
 | is_used | 쿠폰 사용 여부                          |
 
 coupon, work, user 외래키 3개를 묶어서 unique 속성 부여(UniqueConstraint)
+
+-> 같은 작품, 같은 사용자가 중복해서 쿠폰 발급 받는 것을 막기 위해
 
 <br><br>
 
